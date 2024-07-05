@@ -1,3 +1,6 @@
+import React from "react";
+import ReactDOM from "react-dom/client";
+
 let div = React.createElement("div", { id: "maindiv" }, [
   React.createElement("div", { id: "childiv" }, [
     React.createElement("h1", {}, "hello"),
