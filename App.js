@@ -1,36 +1,64 @@
-import React from "react";
+import React, { Children } from "react";
 import ReactDOM from "react-dom/client";
+import logo from "./public/images/logo.png";
+import "./public/css/style.css";
 
-const Header = ({ children }) => <header>{children}</header>;
-const Footer = () => <footer>copyright 2024</footer>;
-
-const ParentComponet = () => (
-  <div>
-    <Header>parent component Header</Header>
-    <h1>ParentComponet</h1>
-    {Footer()}
-  </div>
-);
-const HeadingComponent = () => {
-  function hello() {
-    console.log("hello");
-  }
+const Header = () => {
   return (
-    <>
-      <Header>Namaste React</Header>
-      <h1 className="helloS" style={{ color: "red" }}>
-        Namaste
-      </h1>
-      <Footer />
-      {Footer()}
-      <Footer></Footer>
+    <div className="header">
+      <div className="logo-container">
+        <img className="logo" src={logo} />
+      </div>
+      <div className="nav-items">
+        <ul className="items">
+          <li>Home</li>
+          <li>About us</li>
+          <li>Contact us</li>
+          <li>Cart</li>
+        </ul>
+      </div>
+    </div>
+  );
+};
 
-      {ParentComponet()}
-      <ParentComponet />
-      <ParentComponet></ParentComponet>
-    </>
+const Button = ({ children, onClick, style }) => {
+  return (
+    <button onClick={onClick} style={style}>
+      {children}
+    </button>
+  );
+};
+
+const RestroCards = () => {
+  return (
+    <div className="res-card">
+      <h3>Meghana Foods</h3>
+    </div>
+  );
+};
+
+const Body = () => {
+  return (
+    <div className="body">
+      <div className="search">
+        <input placeholder="search" />
+        <Button style={{ color: "black" }}>search</Button>
+      </div>
+      <div className="restro-container">
+        <RestroCards />
+      </div>
+    </div>
+  );
+};
+
+const AppLayout = () => {
+  return (
+    <div className="app">
+      <Header />
+      <Body />
+    </div>
   );
 };
 
 let root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(HeadingComponent());
+root.render(<AppLayout />);
