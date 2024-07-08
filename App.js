@@ -1,6 +1,7 @@
-import React, { Children } from "react";
+import React from "react";
 import ReactDOM from "react-dom/client";
 import logo from "./public/images/logo.png";
+import meghanaFoods from "./public/images/meghanafoods.avif";
 import "./public/css/style.css";
 
 const Header = () => {
@@ -29,12 +30,18 @@ const Button = ({ children, onClick, style }) => {
   );
 };
 
-const RestroCards = () => {
-  return (
-    <div className="res-card">
-      <h3>Meghana Foods</h3>
-    </div>
-  );
+const swiggy = {
+  id: "10575",
+  name: "Pizza Hut",
+  cloudinaryImageId: "2b4f62d606d1b2bfba9ba9e5386fabb7",
+  locality: "Richmond Town",
+  areaName: "Shanti Nagar",
+  costForTwo: "₹600 for two",
+  cuisines: ["Pizzas"],
+  avgRating: 4.2,
+  parentId: "721",
+  avgRatingString: "4.2",
+  totalRatingsString: "5K+",
 };
 
 const Body = () => {
@@ -45,12 +52,24 @@ const Body = () => {
         <Button style={{ color: "black" }}>search</Button>
       </div>
       <div className="restro-container">
-        <RestroCards />
+        <RestroCards swiggyobj={swiggy} />
+        <RestroCards swiggyobj={swiggy} />
       </div>
     </div>
   );
 };
 
+const RestroCards = ({ swiggyobj }) => {
+  return (
+    <div className="res-card">
+      <img className="meghanafood" src={meghanaFoods} />
+      <h3>{swiggyobj.name}</h3>
+      <h3>{swiggyobj.locality}</h3>
+      <h4>{swiggyobj.avgRating}</h4>
+      <h4>36 Minutes</h4>
+    </div>
+  );
+};
 const AppLayout = () => {
   return (
     <div className="app">
