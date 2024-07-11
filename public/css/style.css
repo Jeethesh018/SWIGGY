@@ -47,3 +47,7 @@
   display: flex;
   flex-wrap: wrap;
 }
+
+.topRated {
+  float: right;
+}
