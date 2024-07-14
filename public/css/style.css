@@ -51,3 +51,13 @@
 .topRated {
   float: right;
 }
+
+.link {
+  text-decoration-line: none;
+  color: black;
+  padding: 0px 20px;
+}
+
+.nav-items {
+  padding-left: 20px;
+}
