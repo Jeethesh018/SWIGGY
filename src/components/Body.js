@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import Button from "../../src/components/Button";
-import { swiggy } from "../utils/mockData.js";
+
 import RestroCards from "./RestroCards";
 import Shimmer from "./Shimmer";
+import { Link } from "react-router-dom";
 
 export const Body = () => {
   const [list, setList] = useState([]);
@@ -26,7 +27,13 @@ export const Body = () => {
           data?.data?.cards[0]?.card?.card?.gridElements?.infoWithStyle?.info
         );
         console.log(
-          data.data.cards[0].card.card.gridElements.infoWithStyle.info
+          data?.data?.cards[0]?.card?.card?.gridElements?.infoWithStyle?.info.map(
+            (item) =>
+              item.action.link
+                .split("/")[4]
+                .replace(/[\[\]"]/g, "")
+                .substring(0, 5)
+          )
         );
         setLoading(false);
       } catch (e) {
@@ -76,7 +83,18 @@ export const Body = () => {
                   <RestroCards key={swiggy.id} swiggyobj={swiggy} />
                 ))
             : list2.map((swiggy) => (
-                <RestroCards key={swiggy.id} swiggyobj={swiggy} />
+                <Link
+                  key={swiggy.id}
+                  to={
+                    `/restaurant/` +
+                    swiggy.action.link
+                      .split("/")[4]
+                      .replace(/[\[\]"]/g, "")
+                      .substring(0, 5)
+                  }
+                >
+                  <RestroCards swiggyobj={swiggy} />
+                </Link>
               ))}
         </div>
       )}
