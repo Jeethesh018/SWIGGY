@@ -9,6 +9,10 @@ class UserClass extends React.Component {
     };
   }
 
+  componentDidMount() {
+    console.log("hello");
+  }
+
   render() {
     return (
       <div className="user-card">
