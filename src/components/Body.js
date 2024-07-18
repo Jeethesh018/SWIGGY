@@ -1,49 +1,12 @@
-import { useEffect, useState } from "react";
 import Button from "../../src/components/Button";
-
 import RestroCards from "./RestroCards";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
+import useBodyAPI from "../utils/useBodyAPI";
 
 export const Body = () => {
-  const [list, setList] = useState([]);
-  const [list2, setList2] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [label, setLabel] = useState(false);
-  const [search, setSearch] = useState("");
-
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        setLoading(true);
-        const response = await fetch(
-          "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.8890014&lng=77.5984758&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
-        );
-        data = await response.json();
-        setList(
-          data?.data?.cards[0]?.card?.card?.gridElements?.infoWithStyle?.info
-        );
-        setList2(
-          data?.data?.cards[0]?.card?.card?.gridElements?.infoWithStyle?.info
-        );
-        console.log(
-          data?.data?.cards[0]?.card?.card?.gridElements?.infoWithStyle?.info.map(
-            (item) =>
-              item.action.link
-                .split("/")[4]
-                .replace(/[\[\]"]/g, "")
-                .substring(0, 5)
-          )
-        );
-        setLoading(false);
-      } catch (e) {
-        console.log(e, "Data fetching Failed");
-      }
-    }
-    fetchData();
-  }, []);
-  console.log(search);
-
+  const [list, list2, loading, label, search, setList2, setLabel, setSearch] =
+    useBodyAPI();
   return (
     <div className="body">
       <div className="search">

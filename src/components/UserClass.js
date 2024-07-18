@@ -3,32 +3,42 @@ import React from "react";
 class UserClass extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
-      count: 10,
-      name: "girish",
+      username: "jeethesh018  ",
+      apidata: {
+        login: "",
+        avatar_url: "",
+      },
     };
   }
 
-  componentDidMount() {
-    console.log("hello");
+  async componentDidMount() {
+    const data = await fetch(
+      `https://api.github.com/users/${this.state.username}`
+    );
+    const res = await data.json();
+    console.log(res);
+
+    this.setState({ apidata: res });
   }
 
   render() {
     return (
       <div className="user-card">
-        <h2>Name : {this.state.name}</h2>
-        <h3>Location : {this.props.location}</h3>
-        <h3>count : {this.state.count}</h3>
-        <button
-          onClick={() =>
+        <input
+          type="text"
+          placeholder="search username"
+          value={this.state.username}
+          onChange={(e) =>
             this.setState({
-              count: this.state.count + 1,
-              name: "jeethesh",
+              username: e.target.value,
             })
           }
-        >
-          Counter
-        </button>
+        />
+        <h2>Name : {this.state.apidata.login}</h2>
+        <h3>created_at : {this.state.apidata.created_at}</h3>
+        <img src={this.state.apidata.avatar_url} />
       </div>
     );
   }

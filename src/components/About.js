@@ -5,7 +5,7 @@ const About = () => {
   return (
     <div>
       Namaste react Aboout us
-      <User name="jeethesh" location="bangalore" />
+      {/* <User name="jeethesh" location="bangalore" /> */}
       <UserClass name="jeethesh" location="bangalore" />
     </div>
   );
