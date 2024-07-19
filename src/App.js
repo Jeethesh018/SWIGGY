@@ -1,21 +1,32 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import "../public/css/style.css";
 import Header from "./components/Header";
 import Body from "./components/Body";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import About from "./components/About";
-import Contact from "./components/Contact";
 import Error from "./components/Error";
 import Cart from "./components/Cart";
 import RestaurantMenu from "./components/RestrauntMenu";
+import useStatus from "./utils/useStatus";
+
+const Contact = lazy(() => import("./components/Contact"));
 
 const AppLayout = () => {
+  const [status] = useStatus();
   return (
-    <div className="app">
-      <Header />
-      <Outlet />
-    </div>
+    <>
+      {!status ? (
+        <h3 style={{ textAlign: "center" }}>
+          You are offline!! Please check Your Internet Connection!🔴
+        </h3>
+      ) : (
+        <div className="app">
+          <Header />
+          <Outlet />
+        </div>
+      )}
+    </>
   );
 };
 
@@ -35,7 +46,11 @@ let appRouter = createBrowserRouter([
       },
       {
         path: "contact",
-        element: <Contact />,
+        element: (
+          <Suspense>
+            <Contact />
+          </Suspense>
+        ),
       },
       {
         path: "cart",
