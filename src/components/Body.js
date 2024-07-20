@@ -8,15 +8,16 @@ export const Body = () => {
   const [list, list2, loading, label, search, setList2, setLabel, setSearch] =
     useBodyAPI();
   return (
-    <div className="body">
-      <div className="search">
+    <div className="p-5">
+      <div className="flex justify-end ">
         <input
+          className="h-10 w-60 rounded-md pl-10 ml-10 border-solid  border-stone-400 border-2"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          placeholder="search"
+          placeholder="Search food..."
         />
         <Button
-          className="topRated"
+          className="bg-stone-300 h-10 w-40 ml-2  rounded-lg"
           onClick={() => {
             if (label) {
               setList2(list);
@@ -36,7 +37,7 @@ export const Body = () => {
           <Shimmer />
         </div>
       ) : (
-        <div className="restro-container">
+        <div className="p-10 m-10 flex flex-wrap">
           {search !== ""
             ? list2
                 .filter((item) =>
@@ -45,20 +46,22 @@ export const Body = () => {
                 .map((swiggy) => (
                   <RestroCards key={swiggy.id} swiggyobj={swiggy} />
                 ))
-            : list2.map((swiggy) => (
-                <Link
-                  key={swiggy.id}
-                  to={
-                    `/restaurant/` +
-                    swiggy.action.link
-                      .split("/")[4]
-                      .replace(/[\[\]"]/g, "")
-                      .substring(0, 5)
-                  }
-                >
-                  <RestroCards swiggyobj={swiggy} />
-                </Link>
-              ))}
+            : list2
+                .filter((item) => item.action.text != "Monsoon")
+                .map((swiggy) => (
+                  <Link
+                    key={swiggy.id}
+                    to={
+                      `/restaurant/` +
+                      swiggy.action.link
+                        .split("/")[4]
+                        .replace(/[\[\]"]/g, "")
+                        .substring(0, 5)
+                    }
+                  >
+                    <RestroCards swiggyobj={swiggy} />
+                  </Link>
+                ))}
         </div>
       )}
     </div>

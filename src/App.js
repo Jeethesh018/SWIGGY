@@ -15,7 +15,7 @@ const Contact = lazy(() => import("./components/Contact"));
 const AppLayout = () => {
   const [status] = useStatus();
   return (
-    <>
+    <div className="">
       {!status ? (
         <h3 style={{ textAlign: "center" }}>
           You are offline!! Please check Your Internet Connection!🔴
@@ -26,7 +26,7 @@ const AppLayout = () => {
           <Outlet />
         </div>
       )}
-    </>
+    </div>
   );
 };
 
