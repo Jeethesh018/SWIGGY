@@ -1,4 +1,3 @@
-import React from "react";
 import { useState, useEffect } from "react";
 
 function useBodyAPI() {
@@ -24,13 +23,7 @@ function useBodyAPI() {
           data?.data?.cards[0]?.card?.card?.gridElements?.infoWithStyle?.info
         );
         console.log(
-          data?.data?.cards[0]?.card?.card?.gridElements?.infoWithStyle?.info.map(
-            (item) =>
-              item.action.link
-                .split("/")[4]
-                .replace(/[\[\]"]/g, "")
-                .substring(0, 5)
-          )
+          data?.data?.cards[0]?.card?.card?.gridElements?.infoWithStyle?.info
         );
         setLoading(false);
       } catch (e) {

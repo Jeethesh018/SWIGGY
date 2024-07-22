@@ -9,6 +9,7 @@ import Error from "./components/Error";
 import Cart from "./components/Cart";
 import RestaurantMenu from "./components/RestrauntMenu";
 import useStatus from "./utils/useStatus";
+import ItemsMenu from "./components/ItemsMenu";
 
 const Contact = lazy(() => import("./components/Contact"));
 
@@ -59,6 +60,10 @@ let appRouter = createBrowserRouter([
       {
         path: "restaurant/:resid1",
         element: <RestaurantMenu />,
+      },
+      {
+        path: "restaurant/:resid1/:itemsid",
+        element: <ItemsMenu />,
       },
     ],
   },
