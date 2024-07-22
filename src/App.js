@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from "react";
+import React, { createContext, lazy, Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import "../public/css/style.css";
 import Header from "./components/Header";
@@ -10,11 +10,15 @@ import Cart from "./components/Cart";
 import RestaurantMenu from "./components/RestrauntMenu";
 import useStatus from "./utils/useStatus";
 import ItemsMenu from "./components/ItemsMenu";
+import { useState } from "react";
 
 const Contact = lazy(() => import("./components/Contact"));
 
+export const toggleContext = createContext();
+
 const AppLayout = () => {
   const [status] = useStatus();
+  const [toggle, setToggle] = useState(false);
   return (
     <div className="">
       {!status ? (
@@ -22,10 +26,12 @@ const AppLayout = () => {
           You are offline!! Please check Your Internet Connection!🔴
         </h3>
       ) : (
-        <div className="app">
-          <Header />
-          <Outlet />
-        </div>
+        <toggleContext.Provider value={{ toggle, setToggle }}>
+          <div className="app">
+            <Header />
+            <Outlet />
+          </div>
+        </toggleContext.Provider>
       )}
     </div>
   );

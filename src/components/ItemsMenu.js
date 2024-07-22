@@ -1,7 +1,12 @@
 import useItemsMenuAPI from "../utils/useItemsMenuAPI";
+import { useContext, useState } from "react";
+import { toggleContext } from "../App";
 
 const ItemsMenu = () => {
   const [items] = useItemsMenuAPI();
+  const { toggle, setToggle } = useContext(toggleContext);
+  const [showIndex, setShowIndex] = useState(0);
+
   const Header = items[0]?.card?.card;
 
   const rating = items[2]?.card?.card?.info;
@@ -21,6 +26,12 @@ const ItemsMenu = () => {
     .map((item) => item?.card.card);
 
   console.log(foodItems);
+
+  function handletoggle(i) {
+    setShowIndex(i);
+    setToggle(!toggle);
+    console.log(i);
+  }
 
   return (
     <>
@@ -60,11 +71,55 @@ const ItemsMenu = () => {
             ))}
           </div>
         </div>
-        <div className="p-10 m-40">
-          {foodItems?.map((item) => (
+        <div className="p-10 m-40 cursor-pointer ">
+          {foodItems?.map((item, i) => (
             <>
-              <h1 className="w-[80%] h-20 bg-stone-300 mt-10 ">{item.title}</h1>
-              {/* <div>{item?.itemCards.map((item)=>item.card.info)}</div> */}
+              <div
+                onClick={() => handletoggle(i)}
+                key={item.title}
+                className="shadow-sm"
+              >
+                <h1 className="w-[80%] h-20 bg-stone-300 mt-10 font-bold p-5 m-5  text-3xl">
+                  {item.title}
+                </h1>
+              </div>
+              {showIndex === i && toggle ? (
+                <div className="p-5 m-5">
+                  {item?.itemCards?.map((item) => (
+                    <>
+                      <div>
+                        <h1 className="font-bold text-2xl">
+                          {item.card.info.name}
+                        </h1>
+                        <h3 className="font-semibold">
+                          Rs.
+                          {item?.card?.info?.defaultPrice / 100 ||
+                            item?.card?.info?.price / 100}{" "}
+                          Only.
+                        </h3>
+                        <h3 className="font-semibold">
+                          ⭐
+                          {item?.card?.info?.ratings?.aggregatedRating
+                            ?.rating || "No ratings"}{" "}
+                          (
+                          {
+                            item?.card?.info?.ratings?.aggregatedRating
+                              ?.ratingCountV2
+                          }
+                          )
+                        </h3>
+                      </div>
+                      <img
+                        className="ml-[730px] mt-[-65px] rounded-lg"
+                        src={`https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_300,h_300,c_fit/${item.card.info.imageId}`}
+                      />
+                      <hr></hr>
+                    </>
+                  ))}
+                </div>
+              ) : (
+                ""
+              )}
             </>
           ))}
         </div>
