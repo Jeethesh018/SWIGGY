@@ -1,11 +1,15 @@
 import useItemsMenuAPI from "../utils/useItemsMenuAPI";
 import { useContext, useState } from "react";
 import { toggleContext } from "../App";
+import Button from "./Button";
+import { useDispatch } from "react-redux";
+import { additem } from "../utils/Redux/cartSlice";
 
 const ItemsMenu = () => {
   const [items] = useItemsMenuAPI();
   const { toggle, setToggle } = useContext(toggleContext);
   const [showIndex, setShowIndex] = useState(0);
+  const dispatch = useDispatch();
 
   const Header = items[0]?.card?.card;
 
@@ -113,6 +117,12 @@ const ItemsMenu = () => {
                         className="ml-[730px] mt-[-65px] rounded-lg"
                         src={`https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_300,h_300,c_fit/${item.card.info.imageId}`}
                       />
+                      <Button
+                        onClick={() => dispatch(additem(item))}
+                        className="ml-[730px] mt-[-65px] rounded-lg bg-black w-[200px] h-[50px] font-bold text-slate-50"
+                      >
+                        Add
+                      </Button>
                       <hr></hr>
                     </>
                   ))}

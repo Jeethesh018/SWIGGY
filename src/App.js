@@ -11,6 +11,8 @@ import RestaurantMenu from "./components/RestrauntMenu";
 import useStatus from "./utils/useStatus";
 import ItemsMenu from "./components/ItemsMenu";
 import { useState } from "react";
+import { Provider } from "react-redux";
+import store from "./utils/Redux/appStore";
 
 const Contact = lazy(() => import("./components/Contact"));
 
@@ -26,12 +28,14 @@ const AppLayout = () => {
           You are offline!! Please check Your Internet Connection!🔴
         </h3>
       ) : (
-        <toggleContext.Provider value={{ toggle, setToggle }}>
-          <div className="app">
-            <Header />
-            <Outlet />
-          </div>
-        </toggleContext.Provider>
+        <Provider store={store}>
+          <toggleContext.Provider value={{ toggle, setToggle }}>
+            <div className="app">
+              <Header />
+              <Outlet />
+            </div>
+          </toggleContext.Provider>
+        </Provider>
       )}
     </div>
   );

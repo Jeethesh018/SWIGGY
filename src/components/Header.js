@@ -4,8 +4,11 @@ import Home from "../../public/images/Home.png";
 import About from "../../public/images/About.png";
 import contact from "../../public/images/contact.jpg";
 import cart from "../../public/images/cart.png";
+import { useSelector } from "react-redux";
 
 const Header = () => {
+  const cartitems = useSelector((store) => store.cart.items);
+  console.log(cartitems);
   return (
     <div className="flex justify-between shadow-2xl bg-stone-200">
       <div className="logo-container">
@@ -25,7 +28,7 @@ const Header = () => {
             <img className="w-5 h-5 pl-1" src={contact} />
           </Link>
           <Link to="cart" className="p-10 flex font-bold">
-            Cart
+            Cart {cartitems.length > 0 ? cartitems.length : ""}
             <img className="w-5 h-5 pl-1" src={cart} />
           </Link>
         </ul>
