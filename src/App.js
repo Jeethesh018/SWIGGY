@@ -72,7 +72,7 @@ let appRouter = createBrowserRouter([
         element: <RestaurantMenu />,
       },
       {
-        path: "restaurant/:resid1/:itemsid",
+        path: "restaurant/:resid1/restaurant_id/:itemsid",
         element: <ItemsMenu />,
       },
     ],

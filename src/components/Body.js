@@ -44,7 +44,18 @@ export const Body = () => {
                   item.action.text.toLowerCase().includes(search.toLowerCase())
                 )
                 .map((swiggy) => (
-                  <RestroCards key={swiggy.id} swiggyobj={swiggy} />
+                  <Link
+                    key={swiggy.id}
+                    to={
+                      `/restaurant/` +
+                      swiggy.action.link
+                        .split("/")[4]
+                        .replace(/[\[\]"]/g, "")
+                        .substring(0, 5)
+                    }
+                  >
+                    <RestroCards key={swiggy.id} swiggyobj={swiggy} />
+                  </Link>
                 ))
             : list2
                 .filter((item) => item.action.text != "Monsoon")

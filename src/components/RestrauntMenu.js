@@ -12,7 +12,7 @@ const RestaurantMenu = () => {
   ) : (
     <div className=" p-10 m-10 flex flex-wrap ">
       {resinfo.map((items) => (
-        <Link to={`/restaurant/${resid1}/${items.id}`}>
+        <Link to={`/restaurant/${resid1}/restaurant_id/${items.id}`}>
           <div className="p-10 m-10 bg-stone-200 rounded-md" key={items.id}>
             <img
               className="w-[200px] h-[200px] rounded-full"
